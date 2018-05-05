@@ -1,4 +1,4 @@
-package cm;
+package model;
 
 public class Car {
 	private String model;
