@@ -4,7 +4,7 @@ public class Car {
 	
 	String chassisNumber;
 	String model;
-	Double weight;
+	double weight;
 
 	public Car(String cnr, String model, Double weight)
 	{

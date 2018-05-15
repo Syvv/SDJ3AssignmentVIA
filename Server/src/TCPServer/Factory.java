@@ -6,6 +6,9 @@ import java.util.ArrayList;
 public class Factory {
 
 	ArrayList<Car> cars = new ArrayList<>();
+	ArrayList<Part> parts = new ArrayList<>();
+	ArrayList<Product> products = new ArrayList<>();
+	ArrayList<Pallet> pallets = new ArrayList<>();
 	
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException {
@@ -26,11 +29,52 @@ public class Factory {
 		
 	}
 	
-	public boolean addCar(String cnr, String model, Double weight)
+	public boolean addCar(String cnr, String model, double weight)
 	{
 		cars.add(new Car(cnr,model,weight));
 		//TODO Add to text file(Database)
 		return true;//Car succesfully added
+	}
+	
+	public boolean addPart(String cnr, double weight, String desc)
+	{
+		Car temp = null;
+		for(Car c:cars)
+		{
+			if(c.chassisNumber.equals(cnr))
+			{
+				temp = c;
+				break;
+			}
+		}
+		if(temp==null)
+		{
+			return false;
+		}
+		parts.add(new Part(parts.size(),temp,weight,desc));
+		//TODO Add to text file(Database)
+		return true;
+	}
+	
+	public boolean addProduct(int productNr,int[] partNrs, String desc)
+	{
+		ArrayList<Part> tempp = new ArrayList<Part>();
+		for(Part p:parts)
+		{
+			for(int i:partNrs)
+			{
+				if(i==p.partNr)
+				{
+					tempp.add(p);
+				}
+			}
+		}
+		if(tempp.isEmpty())
+		{
+			return false;
+		}
+		products.add(new Product(products.size(),tempp,desc));
+		return true;
 	}
 
 }
